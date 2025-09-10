@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:3000"; // Change to Render backend later
+const API_BASE = "https://graduates-db.onrender.com"; // Change to Render backend later
 
 // Helper function to safely render charts
 function renderChart(id, option) {

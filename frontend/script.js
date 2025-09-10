@@ -20,7 +20,7 @@ async function loadGraduates(page = 1) {
   params.append('limit', pageSize);
 
   try {
-    const res = await fetch(`http://localhost:3000/graduates/${dept}?${params}`);
+    const res = await fetch(`https://graduates-db.onrender.com/graduates/${dept}?${params}`);
     if (!res.ok) throw new Error('Backend request failed');
 
     const result = await res.json();
