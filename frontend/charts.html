@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graduate Charts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6">Graduate Statistics Dashboard</h1>
+
+    <!-- Department Selector -->
+    <div class="mb-6">
+      <label class="block font-medium mb-2">Select Department:</label>
+      <select id="department" class="p-2 border rounded">
+        <option value="arch">Architecture</option>
+        <option value="bba">BBA</option>
+        <option value="cse">CSE</option>
+        <option value="civil">Civil</option>
+        <option value="eee">EEE</option>
+        <option value="ipe">IPE</option>
+        <option value="mecha">Mechanical</option>
+        <option value="textile">Textile</option>
+      </select>
+      <button onclick="loadCharts()" class="ml-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Load Charts
+      </button>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="grid grid-cols-1 gap-6">
+      <div class="bg-white p-4 rounded-lg shadow">
+        <h2 class="text-xl font-semibold mb-4">Graduates per Convocation</h2>
+        <div id="convocationChart" style="height:400px;"></div>
+      </div>
+
+      <div class="bg-white p-4 rounded-lg shadow">
+        <h2 class="text-xl font-semibold mb-4">Average CGPA per Convocation</h2>
+        <div id="cgpaChart" style="height:400px;"></div>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-1 gap-6 mt-6">
+            <!-- 2. Student Count by Department -->
+        <div class="bg-white p-4 rounded-lg shadow">
+            <h2 class="text-xl font-semibold mb-4">Student Count by Dept</h2>
+            <div id="countDeptChart" style="height:400px;"></div>
+        </div>
+
+         <!-- 1. Average CGPA per Department -->
+        <div class="bg-white p-4 rounded-lg shadow">
+            <h2 class="text-xl font-semibold mb-4">Average CGPA per Department</h2>
+            <div id="avgCgpaDeptChart" style="height:400px;"></div>
+        </div>
+
+        <!-- 3. CGPA Distribution by Department -->
+        <div class="bg-white p-4 rounded-lg shadow">
+            <h2 class="text-xl font-semibold mb-4">CGPA Distribution by Dept</h2>
+            <div id="cgpaDeptChart" style="height:500px;"></div>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="mt-8">
+      <a href="index.html">
+        <button class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+          ⬅ Back to Table
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <script src="charts.js"></script>
+</body>
+</html>
