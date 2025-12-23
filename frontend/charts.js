@@ -1,4 +1,17 @@
 const API_BASE = "https://graduates-db.onrender.com"; // Change to Render backend later
+const MAX_GUEST_REQUESTS = 20;
+const CHART_REQUESTS_PER_LOAD = 5;
+
+function canMakeGuestRequest(count = 1) {
+  if (localStorage.getItem("gradRole") !== "guest") return true;
+  const used = parseInt(localStorage.getItem("guestRequestCount") || "0", 10);
+  if (used + count > MAX_GUEST_REQUESTS) {
+    alert("Guest limit reached (20 requests per PC). Please log in as admin.");
+    return false;
+  }
+  localStorage.setItem("guestRequestCount", String(used + count));
+  return true;
+}
 
 // Helper function to safely render charts
 function renderChart(id, option) {
@@ -16,6 +29,7 @@ async function loadCharts() {
   const dept = deptSelect ? deptSelect.value : "eee"; // fallback to EEE
 
   try {
+    if (!canMakeGuestRequest(CHART_REQUESTS_PER_LOAD)) return;
     /* ---------- 1. Convocation Chart (Pie) ---------- */
     const res1 = await fetch(`${API_BASE}/graduates/${dept}/chart/convocation`);
     let data1 = await res1.json();

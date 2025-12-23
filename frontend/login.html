@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Graduates Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+  <div class="w-full max-w-md bg-white rounded-lg shadow p-6">
+    <h1 class="text-2xl font-bold mb-2">Welcome Back</h1>
+    <p class="text-gray-600 mb-6">Sign in to access the dashboard.</p>
+
+    <form id="loginForm" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium mb-1" for="username">Username</label>
+        <input id="username" type="text" class="w-full border rounded px-3 py-2" placeholder="Enter username" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1" for="password">Password</label>
+        <input id="password" type="password" class="w-full border rounded px-3 py-2" placeholder="Enter password" required>
+      </div>
+      <p id="error" class="text-sm text-red-600 hidden">Invalid credentials. Try again.</p>
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+        Login
+      </button>
+    </form>
+    <div class="mt-4 space-y-2">
+      <button id="guestBtn" class="w-full bg-gray-600 text-white py-2 rounded hover:bg-gray-700">
+        Login as Guest
+      </button>
+      <p class="text-xs text-gray-500">
+        Guest limit: 10 requests per PC.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      if (localStorage.getItem("gradAuth") === "true") {
+        window.location.href = "index.html";
+        return;
+      }
+
+      var form = document.getElementById("loginForm");
+      var error = document.getElementById("error");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var username = document.getElementById("username").value.trim();
+        var password = document.getElementById("password").value;
+
+        if (username === "admin" && password === "admin12345678") {
+          localStorage.setItem("gradAuth", "true");
+          localStorage.setItem("gradRole", "admin");
+          window.location.href = "index.html";
+          return;
+        }
+
+        error.classList.remove("hidden");
+      });
+
+      document.getElementById("guestBtn").addEventListener("click", function () {
+        localStorage.setItem("gradAuth", "true");
+        localStorage.setItem("gradRole", "guest");
+        window.location.href = "index.html";
+      });
+    })();
+  </script>
+</body>
+</html>

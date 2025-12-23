@@ -6,6 +6,11 @@
   <title>Graduate Charts</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script>
+    if (localStorage.getItem("gradAuth") !== "true") {
+      window.location.href = "login.html";
+    }
+  </script>
 </head>
 <body class="bg-gray-100 min-h-screen p-6">
   <div class="max-w-6xl mx-auto">
@@ -63,7 +68,10 @@
     </div>
 
     <!-- Back Button -->
-    <div class="mt-8">
+    <div class="mt-8 flex items-center gap-3">
+      <button id="logoutBtn" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+        Logout
+      </button>
       <a href="index.html">
         <button class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
           ⬅ Back to Table
@@ -73,5 +81,12 @@
   </div>
 
   <script src="charts.js"></script>
+  <script>
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+      localStorage.removeItem("gradAuth");
+      localStorage.removeItem("gradRole");
+      window.location.href = "login.html";
+    });
+  </script>
 </body>
 </html>

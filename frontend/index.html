@@ -5,13 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Graduates Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    if (localStorage.getItem("gradAuth") !== "true") {
+      window.location.href = "login.html";
+    }
+  </script>
 </head>
 <body class="bg-gray-100 p-6">
 
 <div class="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow">
   <div class="flex justify-between items-center mb-4">
     <h1 class="text-2xl font-bold mb-4">Graduates Dashboard</h1>
-    <div class="mt-6">
+    <div class="mt-6 flex items-center gap-3">
+      <button id="logoutBtn" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+        Logout
+      </button>
       <a href="charts.html">
         <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
           📊 View Charts
@@ -69,5 +77,12 @@
 </div>
 
 <script src="script.js"></script>
+<script>
+  document.getElementById("logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem("gradAuth");
+    localStorage.removeItem("gradRole");
+    window.location.href = "login.html";
+  });
+</script>
 </body>
 </html>

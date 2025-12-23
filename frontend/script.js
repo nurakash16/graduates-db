@@ -1,6 +1,18 @@
 let currentPage = 1;
 let totalPages = 1;
 const pageSize = 10;
+const MAX_GUEST_REQUESTS = 20;
+
+function canMakeGuestRequest(count = 1) {
+  if (localStorage.getItem("gradRole") !== "guest") return true;
+  const used = parseInt(localStorage.getItem("guestRequestCount") || "0", 10);
+  if (used + count > MAX_GUEST_REQUESTS) {
+    alert("Guest limit reached (20 requests per PC). Please log in as admin.");
+    return false;
+  }
+  localStorage.setItem("guestRequestCount", String(used + count));
+  return true;
+}
 
 async function loadGraduates(page = 1) {
   currentPage = page;
@@ -20,6 +32,7 @@ async function loadGraduates(page = 1) {
   params.append('limit', pageSize);
 
   try {
+    if (!canMakeGuestRequest(1)) return;
     const res = await fetch(`https://graduates-db.onrender.com/graduates/${dept}?${params}`);
     if (!res.ok) throw new Error('Backend request failed');
 
